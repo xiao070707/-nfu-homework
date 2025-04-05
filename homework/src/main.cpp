@@ -2,54 +2,76 @@
 #include <vector>
 #include <ctime>
 #include <cstdlib>
-#include <algorithm>
 #include "header.h"
 
-void PrintVector(const std::vector<int>& arr) {
-    for (int num : arr)
-        std::cout << num << " ";
-    std::cout << "\n";
-}
+using namespace std;
 
 int main() {
-    std::srand(std::time(nullptr));
-    std::vector<int> sizes = {500, 1000, 2000, 3000, 4000, 5000};
+    srand(static_cast<unsigned int>(time(0)));
 
+    int sizes[] = { 500, 1000, 2000, 3000, 4000, 5000 };
     for (int size : sizes) {
-        std::vector<int> original;
-        for (int i = 0; i < size; ++i)
-            original.push_back(std::rand() % 10000);
+        vector<int> arr(size);
+        for (int i = 0; i < size; i++) arr[i] = rand() % 10000;
 
-        std::vector<int> arr;
-
-        std::cout << "=== 測試資料筆數: " << size << " ===\n";
-
-        arr = original;
+        vector<int> arr_copy = arr;
         clock_t start = clock();
-        InsertionSort(arr);
+        InsertionSort(arr_copy);
         clock_t end = clock();
-        std::cout << "插入排序耗時: " << (double)(end - start) / CLOCKS_PER_SEC << " 秒\n";
+        cout << "插入排序 (" << size << " 個元素) 時間: "
+            << static_cast<double>(end - start) / CLOCKS_PER_SEC << " 秒\n";
 
-        arr = original;
+        arr_copy = arr;
         start = clock();
-        QuickSort(arr, 0, arr.size() - 1);
+        QuickSort(arr_copy, 0, size - 1);
         end = clock();
-        std::cout << "快速排序耗時: " << (double)(end - start) / CLOCKS_PER_SEC << " 秒\n";
+        cout << "快速排序 (" << size << " 個元素) 時間: "
+            << static_cast<double>(end - start) / CLOCKS_PER_SEC << " 秒\n";
 
-        arr = original;
+        arr_copy = arr;
         start = clock();
-        MergeSort(arr, 0, arr.size() - 1);
+        MergeSort(arr_copy);
         end = clock();
-        std::cout << "合併排序耗時: " << (double)(end - start) / CLOCKS_PER_SEC << " 秒\n";
+        cout << "合併排序 (" << size << " 個元素) 時間: "
+            << static_cast<double>(end - start) / CLOCKS_PER_SEC << " 秒\n";
 
-        arr = original;
+        arr_copy = arr;
         start = clock();
-        HeapSort(arr);
+        HeapSort(arr_copy);
         end = clock();
-        std::cout << "堆積排序耗時: " << (double)(end - start) / CLOCKS_PER_SEC << " 秒\n";
-
-        std::cout << "--------------------------\n";
+        cout << "堆積排序 (" << size << " 個元素) 時間: "
+            << static_cast<double>(end - start) / CLOCKS_PER_SEC << " 秒\n";
     }
+
+    int n = 5000;
+    vector<int> arr(n);
+
+    WorstCaseInsertionSort(arr, n);
+    clock_t start = clock();
+    InsertionSort(arr);
+    clock_t end = clock();
+    cout << "插入排序 (最壞情況) (" << n << " 個元素) 時間: "
+        << static_cast<double>(end - start) / CLOCKS_PER_SEC << " 秒\n";
+
+    WorstCaseQuickSort(arr, n);
+    start = clock();
+    QuickSort(arr, 0, n - 1);
+    end = clock();
+    cout << "快速排序 (最壞情況) (" << n << " 個元素) 時間: "
+        << static_cast<double>(end - start) / CLOCKS_PER_SEC << " 秒\n";
+
+    start = clock();
+    MergeSort(arr);
+    end = clock();
+    cout << "合併排序 (最壞情況) (" << n << " 個元素) 時間: "
+        << static_cast<double>(end - start) / CLOCKS_PER_SEC << " 秒\n";
+
+    WorstCaseHeapSort(arr, n);
+    start = clock();
+    HeapSort(arr);
+    end = clock();
+    cout << "堆積排序 (最壞情況) (" << n << " 個元素) 時間: "
+        << static_cast<double>(end - start) / CLOCKS_PER_SEC << " 秒\n";
 
     return 0;
 }
