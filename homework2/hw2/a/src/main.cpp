@@ -6,7 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <iomanip>
-#include "bst.hpp"
+#include "heap.hpp"
 
 using namespace std;
 
