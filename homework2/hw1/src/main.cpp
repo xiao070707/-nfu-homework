@@ -1,4 +1,3 @@
-
 #include "heap.hpp"
 
 int main() {
