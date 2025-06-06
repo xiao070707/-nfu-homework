@@ -279,7 +279,7 @@ int main() {
    - `PrintArray()`：應印出堆的陣列內部結構  
    - `PrintTree()`：應以樹狀結構（右 → 根 → 左）清晰呈現堆的樣貌
 
-### 測試案例
+### 實測案例
 
 ![image](https://github.com/xiao070707/-nfu-homework/blob/main/img/Screenshot%202025-06-02%20174450.png)
 
